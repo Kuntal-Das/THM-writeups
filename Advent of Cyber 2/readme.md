@@ -366,7 +366,7 @@ target_ip : 10.10.206.228
 
 **Action 1**
 
-	logged into target using given password of cmnatic. 
+ logged into target using given password of cmnatic. 
 
 **Action 2 - doing unnecessary things**
 
@@ -377,7 +377,8 @@ target_ip : 10.10.206.228
  	and set as a executable
 
 **Action 3 - doing unnecessary things**
-What I should have done after running LinEnum or linpeas:(which i think is not nessary for this room)
+
+ What I should have done after running LinEnum or linpeas:(which i think is not nessary for this room)
 
    - Determining the kernel of the machine (kernel exploitation such as Dirtyc0w) 
 
