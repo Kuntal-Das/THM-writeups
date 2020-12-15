@@ -551,4 +551,39 @@ learn Metaspolit
 
 ----
 
-# Day 13 - Coal for Christmas 
+## Day 13 - Coal for Christmas 
+
+
+---
+
+
+## Day 14 - OSIT
+
+
+## Day 15 - Python
+
+### Challenges Ans
+
+**Qus :** What's the output of True + True?
+
+**Ans :** `2`
+
+**Qus :** What's the database for installing other peoples libraries called?
+
+**Ans :** `PyPi`
+
+**Qus :** What is the output of bool("False")?
+
+**Ans :** `True`
+
+**Qus :** What library lets us download the HTML of a webpage?
+
+**Ans :** `Requests`
+
+**Qus :** What is the output of the program provided in "Code to analyse for Question 5" in today's material?
+
+**Ans :** `[1, 2, 3, 6]`
+
+**Qus :** What causes the previous task to output that?
+
+**Ans :** `pass by reference`
