@@ -701,7 +701,7 @@ it created a new account with username `firefart` with root priviledges
 
 ---
 
-## Day 15 - Python
+## Day 15 - There's a Python in my stocking! [Python]
 
 ### Challenges Ans
 
