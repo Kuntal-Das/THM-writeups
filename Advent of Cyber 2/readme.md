@@ -728,3 +728,78 @@ it created a new account with username `firefart` with root priviledges
 **Qus :** What causes the previous task to output that?
 
 **Ans :** `pass by reference`
+
+--- 
+
+## Day16 - Help! Where is Santa?[python scripting]
+
+target : 10.10.163.203
+
+### walkthrough
+
+1. started by simply scannning the `target` with `nmap -sC -sV -O`. Found only one port `8000` open
+
+2. browsed to `http://<target>:8000/static/index.html` fetched all the unique links in that page with a python script[`python script.py http://<target>:8000/static/index.html`]:
+
+  ```python
+  from bs4 import BeautifulSoup
+  import requests 
+  import sys
+
+  def main():
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python fetch_anchor.py <url>")
+
+    uniq = set()
+    html = requests.get(sys.argv[1]) 
+    soup = BeautifulSoup(html.text, "lxml") 
+    
+    links = soup.find_all('a') 
+    for link in links:
+        if "href" in link.attrs:
+          uniq.add(link["href"])
+    
+    for i in uniq:
+      print(i)
+
+  if __name__ == "__main__":
+      main()
+  ```
+
+3. The above sctipt threw `http://machine_ip/api/api_key` as one of the links. Using the suggestions given in the challenge page I enumerated odd api keys to find the right api_key to find santa's location using a python script(again) [`python script.py http://<target>/api`]
+  ```python
+  import requests 
+  import sys
+  
+  def main():
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python emum_apikey.py <url>"+
+          "\n Example : python emum_apikey.py http://example.com/api")
+  
+    for key in range(11,100,2):
+      html = requests.get(f"{sys.argv[1]}/{key}") 
+      print(f"{sys.argv[1]}/{key} : {html.text}")
+  
+  if __name__ == "__main__":
+      main()
+  ```
+4. found a response at `http://10.10.128.8:8000/api/57` `{"item_id":57,"q":"Winter Wonderland, Hyde Park, London."}`. Thats it.DONE.
+
+### Challenges Ans:
+
+**Qus** What is the port number for the web server?
+
+**Ans** `8000`
+
+**Qus** Without using enumerations tools such as Dirbuster, what is the directory for the API?  (without the API key)
+
+**Ans** `/api/`
+
+**Qus** Where is Santa right now?
+
+**Ans** `Winter Wonderland, Hyde Park, London.`
+
+**Qus** Find out the correct API key. Remember, this is an odd number between 0-100. After too many attempts, Santa's Sled will block you. To unblock yourself, simply terminate and re-deploy the target instance (MACHINE_IP)
+
+**Ans** `57`
+
